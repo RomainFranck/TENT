@@ -3,18 +3,30 @@
 
 #include "TENT.hpp"
 
-TEST_CASE("GetSetDel") {
+TEST_CASE("1000^2") {
   TENT<int, 2> tent;
 
-  int a[2] = {0, 0};
-  int b[2] = {1, 1};
+  int index[2] = {0, 0};
 
-  tent.set(a, 0, 42);
-  tent.set(a, 1, 12);
-  tent.set(b, 1, 62);
-  REQUIRE(tent.get(a, 0) == 42);
-  REQUIRE(tent.get(a, 1) == 12);
-  REQUIRE(tent.get(b, 1) == 62);
-  tent.del(b, 1);
-  REQUIRE(tent.get(b, 1) == 42);
+  for (index[0] = 0 ; index[0] < 1000 ; index[0]++) {
+    for (index[1] = 0 ; index[1] < 1000 ; index[1]++) {
+      tent.set(index, 0, 1);
+    }
+  }
 }
+
+
+TEST_CASE("10000^3") {
+  TENT<int, 3> tent;
+  const int edge = 1000;
+  int index[3];
+
+  for (index[0] = -edge ; index[0] < edge ; index[0]++) {
+    for (index[1] = -edge ; index[1] < edge ; index[1]++) {
+      for (index[2] = -edge ; index[2] < edge ; index[2]++) {
+	tent.set(index, 0, 1);
+      }
+    }
+  }
+}
+
