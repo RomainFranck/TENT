@@ -2,32 +2,19 @@
 #define ITENT_HPP_
 
 #include <type_traits>
-#include <Folding.hpp>
+
+template<typename T>class Folding;
 
 template<typename ValueType, unsigned int DIM>
 class ITENT {
 public:
-  void continuousFold() {
-    for (auto f : Folding<decltype(*this)>::instance().continuous)
-      f(this);
-  }
+  typedef ValueType valuetype;
+  static const unsigned int dim = DIM;
 
-  void finalFold() {
-    for(auto f : Folding<decltype(*this)>::instance().final)
-      f(this);
-  }
-
-  ValueType get(int indexes[DIM], unsigned int maxPrecision) const {
-    return ValueType();
-  };
-  
-  void set(int indexes[DIM], unsigned int precision, ValueType value) {
-    return;
-  };
-
-  void del(int indexes[DIM], unsigned int maxPrecision) {
-    return;
-  };
+  virtual ValueType get(int indexes[DIM], unsigned int maxPrecision) const = 0;
+  virtual void set(int indexes[DIM], unsigned int precision, ValueType value) = 0;
+  virtual void del(int indexes[DIM], unsigned int maxPrecision) = 0;
+  virtual void fold() = 0;
 };
 
 #endif
